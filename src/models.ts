@@ -15,6 +15,7 @@ export type SignInInput = {
 
 export type SignUpInput = {
   name: string;
+  username: string;
   email: string;
   password: string;
   passwordConfirm: string;

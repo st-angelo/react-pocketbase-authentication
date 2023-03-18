@@ -1,7 +1,7 @@
 import { AuthProvider, AuthContext, useAuthentication } from './AuthContext';
 import { User, SignInInput, SignUpInput, ForgotPasswordInput } from './models';
 import { signIn, signOut, signUp, forgotPassword } from './repository';
-import { generateUsername, getUserFromModel } from './utils';
+import { getUserFromModel } from './utils';
 
 export {
   AuthProvider,
@@ -15,6 +15,5 @@ export {
   signOut,
   signUp,
   forgotPassword,
-  generateUsername,
   getUserFromModel,
 };

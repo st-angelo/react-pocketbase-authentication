@@ -16,9 +16,3 @@ export const getUserFromModel = (client: PocketBase) => {
     collectionId: model.collectionId,
   } as User;
 };
-
-export const generateUsername = (name: string) => {
-  const _name = name.split(' ').join('');
-  const id = crypto.randomUUID().substring(0, 8);
-  return `${_name.slice(0, 5)}${id}`.toLowerCase();
-};
