@@ -28,15 +28,19 @@ export function useAuthentication() {
 interface AuthProviderProps {
   children: React.ReactNode;
   client: PocketBase;
-  onSignUp?: () => void;
-  onSignInUnverified?: () => void;
+  allowUnverifiedUsers?: boolean;
+  onSignUp?: (user: User | undefined) => void;
+  onSignIn?: (user: User | undefined) => void;
+  onSignOut?: () => void;
 }
 
 export function AuthProvider({
   children,
   client,
+  allowUnverifiedUsers = false,
   onSignUp,
-  onSignInUnverified,
+  onSignIn,
+  onSignOut,
 }: AuthProviderProps) {
   const [user, setUser] = useState<User>();
 
@@ -52,8 +56,10 @@ export function AuthProvider({
     await signIn(input, client);
 
     const fromModel = getUserFromModel(client);
-    if (!fromModel?.isVerified) {
-      onSignInUnverified && onSignInUnverified();
+
+    onSignIn && onSignIn(fromModel);
+
+    if (!fromModel?.isVerified && !allowUnverifiedUsers) {
       signOut(client);
       return;
     }
@@ -65,8 +71,10 @@ export function AuthProvider({
     await signUp(input, client);
 
     const fromModel = getUserFromModel(client);
-    if (!fromModel?.isVerified) {
-      onSignUp && onSignUp();
+
+    onSignUp && onSignUp(fromModel);
+
+    if (!fromModel?.isVerified && !allowUnverifiedUsers) {
       signOut(client);
       return;
     }
@@ -77,6 +85,7 @@ export function AuthProvider({
   const signOutHandler = useCallback(() => {
     signOut(client);
     setUser(getUserFromModel(client));
+    onSignOut && onSignOut();
   }, []);
 
   //#endregion
