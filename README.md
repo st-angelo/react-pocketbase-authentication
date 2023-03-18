@@ -6,7 +6,7 @@ Simple authentication provider and utils using React and Pocketbase
 
 ```bash
 // with npm
-npm i  react-pocketbase-authentication
+npm i react-pocketbase-authentication
 
 // with yarn
 yarn add react-pocketbase-authentication
