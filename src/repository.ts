@@ -2,7 +2,7 @@ import { ForgotPasswordInput, SignInInput, SignUpInput } from './models';
 import PocketBase from 'pocketbase';
 
 export const signIn = async (input: SignInInput, client: PocketBase) => {
-  await client.collection('users').authWithPassword(input.email, input.password);
+  await client.collection('users').authWithPassword(input.usernameOrEmail, input.password);
 };
 
 export const signUp = async (input: SignUpInput, client: PocketBase) => {
